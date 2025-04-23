@@ -1,28 +1,27 @@
 import React, { useState } from "react";
 import StudentList from "./Components/StudentList";
 import StudentForm from "./Components/StundentForm";
+import { v4 as uuidv4 } from "uuid";
+
 
 function App() {
   const [students, setStudents] = useState([
-    { name: "Nguyễn Văn A", class: "12A1", age: 17 },
-    { name: "Trần Thị B", class: "12A2", age: 18 },
-    { name: "Lê Văn C", class: "11B1", age: 16 },
+    { id: uuidv4(), name: "Nguyễn Văn A", class: "12A1", age: 17 },
+    { id: uuidv4(), name: "Trần Thị B", class: "12A2", age: 18 },
+    { id: uuidv4(), name: "Lê Văn C", class: "11B1", age: 16 },
   ]);
 
   const handleAddStudent = (student) => {
-    setStudents([...students, student]);
+    setStudents([...students, { ...student, id: uuidv4() }]);
   };
 
-  const handleDelete = (index) => {
-    const newList = [...students];
-    newList.splice(index, 1);
-    setStudents(newList);
+  const handleDelete = (id) => {
+    setStudents(students.filter((sv) => sv.id !== id));
   };
 
   return (
     <div className="max-w-4xl mx-auto mt-10 p-4">
       <h1 className="text-2xl font-bold mb-6">Quản lý sinh viên</h1>
-
       <StudentForm onAdd={handleAddStudent} />
       <StudentList students={students} onDelete={handleDelete} />
     </div>

@@ -14,14 +14,14 @@ const StudentList = ({ students, onDelete }) => {
           </tr>
         </thead>
         <tbody>
-          {students.map((sv, index) => (
-            <tr key={index} className="hover:bg-gray-50">
+          {students.map((sv) => (
+            <tr key={sv.id} className="hover:bg-gray-50">
               <td className="p-2 border">{sv.name}</td>
               <td className="p-2 border">{sv.class}</td>
               <td className="p-2 border">{sv.age}</td>
               <td className="p-2 border">
                 <button
-                  onClick={() => onDelete(index)}
+                  onClick={() => onDelete(sv.id)}
                   className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
                 >
                   Xoá
