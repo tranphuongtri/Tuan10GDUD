@@ -13,21 +13,24 @@ function App() {
   const [selectedClass, setSelectedClass] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Cập nhật lại localStorage mỗi khi students thay đổi
   useEffect(() => {
     localStorage.setItem("students", JSON.stringify(students));
   }, [students]);
 
   const handleAddStudent = (student) => {
-    setStudents([...students, { ...student, id: uuidv4() }]);
+    const newStudent = { ...student, id: uuidv4() };
+    setStudents((prevStudents) => [...prevStudents, newStudent]);
   };
 
   const handleDelete = (id) => {
-    setStudents(students.filter((sv) => sv.id !== id));
+    const updatedStudents = students.filter((student) => student.id !== id);
+    setStudents(updatedStudents);
   };
 
   const handleUpdateStudent = (id, updatedData) => {
-    const updatedList = students.map((sv) =>
-      sv.id === id ? { ...sv, ...updatedData } : sv
+    const updatedList = students.map((student) =>
+      student.id === id ? { ...student, ...updatedData } : student
     );
     setStudents(updatedList);
   };
@@ -75,7 +78,10 @@ function App() {
         </div>
       </div>
 
+      {/* Form Thêm Sinh Viên */}
       <StudentForm onAdd={handleAddStudent} />
+
+      {/* Danh Sách Sinh Viên */}
       <StudentList
         students={filteredStudents}
         onDelete={handleDelete}
@@ -86,4 +92,3 @@ function App() {
 }
 
 export default App;
-
