@@ -4,9 +4,7 @@ import StudentForm from "./Components/StundentForm";
 import { v4 as uuidv4 } from "uuid";
 
 
-
 function App() {
-  // Tải dữ liệu từ localStorage nếu có
   const loadStudentsFromLocalStorage = () => {
     const storedStudents = localStorage.getItem("students");
     return storedStudents ? JSON.parse(storedStudents) : [];
@@ -16,7 +14,6 @@ function App() {
   const [selectedClass, setSelectedClass] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Lưu danh sách sinh viên vào localStorage mỗi khi danh sách thay đổi
   useEffect(() => {
     localStorage.setItem("students", JSON.stringify(students));
   }, [students]);
@@ -36,7 +33,6 @@ function App() {
     setStudents(updatedList);
   };
 
-  // Lọc sinh viên theo lớp và tìm kiếm
   const filteredStudentsByClass = selectedClass
     ? students.filter((sv) => sv.class === selectedClass)
     : students;
@@ -49,7 +45,6 @@ function App() {
     <div className="max-w-4xl mx-auto mt-10 p-4">
       <h1 className="text-2xl font-bold mb-4">Quản lý sinh viên</h1>
 
-      {/* Input tìm kiếm */}
       <input
         type="text"
         placeholder="Tìm kiếm theo tên..."
@@ -58,7 +53,6 @@ function App() {
         className="border p-2 rounded w-full mb-4"
       />
 
-      {/* Dropdown lọc theo lớp */}
       <div className="mb-4">
         <label htmlFor="classSelect" className="block text-sm font-medium mb-2">
           Chọn lớp:
@@ -78,7 +72,6 @@ function App() {
         </select>
       </div>
 
-      {/* Form thêm sinh viên và danh sách sinh viên */}
       <StudentForm onAdd={handleAddStudent} />
       <StudentList
         students={filteredStudents}
