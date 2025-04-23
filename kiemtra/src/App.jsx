@@ -44,51 +44,60 @@ function App() {
   );
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-6">
-      <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">Quản lý sinh viên</h1>
+    <div className="min-h-screen bg-gradient-to-r from-teal-500 to-blue-600 p-8">
+      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
+        <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-6 tracking-tight">
+          Quản lý sinh viên
+        </h1>
 
-      <div className="flex justify-between items-center mb-6">
-        {/* Input tìm kiếm */}
-        <input
-          type="text"
-          placeholder="Tìm kiếm theo tên..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="border border-gray-300 p-3 rounded-md w-full sm:w-1/2 lg:w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-400"
-        />
+        <div className="flex justify-between items-center mb-6 space-x-4">
+          {/* Input tìm kiếm */}
+          <div className="w-full sm:w-1/2 lg:w-1/3">
+            <input
+              type="text"
+              placeholder="Tìm kiếm theo tên..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full border-2 border-teal-400 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300"
+            />
+          </div>
 
-        {/* Dropdown lọc theo lớp */}
-        <div className="ml-4 w-1/3">
-          <label htmlFor="classSelect" className="block text-sm font-medium text-gray-700 mb-2">
-            Chọn lớp:
-          </label>
-          <select
-            id="classSelect"
-            value={selectedClass}
-            onChange={(e) => setSelectedClass(e.target.value)}
-            className="border border-gray-300 p-3 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            <option value="">Tất cả lớp</option>
-            {[...new Set(students.map((sv) => sv.class))].map((classItem) => (
-              <option key={classItem} value={classItem}>
-                {classItem}
-              </option>
-            ))}
-          </select>
+          {/* Dropdown lọc theo lớp */}
+          <div className="w-1/3">
+            <label htmlFor="classSelect" className="text-sm font-medium text-gray-700 mb-2 block">
+              Chọn lớp:
+            </label>
+            <select
+              id="classSelect"
+              value={selectedClass}
+              onChange={(e) => setSelectedClass(e.target.value)}
+              className="w-full border-2 border-teal-400 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300"
+            >
+              <option value="">Tất cả lớp</option>
+              {[...new Set(students.map((sv) => sv.class))].map((classItem) => (
+                <option key={classItem} value={classItem}>
+                  {classItem}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Form Thêm Sinh Viên */}
+        <StudentForm onAdd={handleAddStudent} />
+
+        {/* Danh Sách Sinh Viên */}
+        <div className="mt-8 overflow-x-auto shadow-lg rounded-lg">
+          <StudentList
+            students={filteredStudents}
+            onDelete={handleDelete}
+            onUpdate={handleUpdateStudent}
+          />
         </div>
       </div>
-
-      {/* Form Thêm Sinh Viên */}
-      <StudentForm onAdd={handleAddStudent} />
-
-      {/* Danh Sách Sinh Viên */}
-      <StudentList
-        students={filteredStudents}
-        onDelete={handleDelete}
-        onUpdate={handleUpdateStudent}
-      />
     </div>
   );
 }
 
 export default App;
+
