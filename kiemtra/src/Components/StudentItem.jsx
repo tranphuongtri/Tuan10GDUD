@@ -28,55 +28,61 @@ const StudentItem = ({ student, onDelete, onUpdate }) => {
   };
 
   return (
-    <tr>
+    <tr className="border-b">
       {editing ? (
         <>
-          <td>
+          <td className="px-4 py-2">
             <input
               value={editData.name}
               onChange={(e) => setEditData({ ...editData, name: e.target.value })}
-              className="border p-1"
+              className="border p-2 rounded-md w-full"
             />
           </td>
-          <td>
+          <td className="px-4 py-2">
             <input
               value={editData.class}
               onChange={(e) => setEditData({ ...editData, class: e.target.value })}
-              className="border p-1"
+              className="border p-2 rounded-md w-full"
             />
           </td>
-          <td>
+          <td className="px-4 py-2">
             <input
               type="number"
               value={editData.age}
               onChange={(e) => setEditData({ ...editData, age: e.target.value })}
-              className="border p-1"
+              className="border p-2 rounded-md w-full"
             />
           </td>
-          <td>
-            <button onClick={handleSave} className="bg-green-500 text-white p-2 rounded mr-2">
+          <td className="px-4 py-2 flex space-x-2">
+            <button
+              onClick={handleSave}
+              className="bg-green-500 text-white p-2 rounded-md hover:bg-green-600"
+            >
               Lưu
             </button>
-            <button onClick={handleCancel} className="bg-gray-500 text-white p-2 rounded">
+            <button
+              onClick={handleCancel}
+              className="bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600"
+            >
               Huỷ
             </button>
           </td>
         </>
       ) : (
         <>
-          <td>{student.name}</td>
-          <td>{student.class}</td>
-          <td>{student.age}</td>
-          <td>
+          <td className="px-4 py-2">{student.name}</td>
+          <td className="px-4 py-2">{student.class}</td>
+          <td className="px-4 py-2">{student.age}</td>
+          <td className="px-4 py-2 flex space-x-2">
             <button
               onClick={handleEditClick}
-              className="bg-yellow-500 text-white p-2 rounded mr-2"
+              className="bg-yellow-500 text-white p-2 rounded-md hover:bg-yellow-600"
             >
               Sửa
             </button>
             <button
               onClick={() => onDelete(student.id)}
-              className="bg-red-500 text-white p-2 rounded"
+              className="bg-red-500 text-white p-2 rounded-md hover:bg-red-600"
             >
               Xoá
             </button>
